@@ -1,6 +1,9 @@
+# 얼굴을 인식해 마스크 착용 여부를 라벨링 해주는 프로그램
+
 import cv2
 import mediapipe as mp
 
+# 색상 정의
 red=(0,0,255)
 green=(0,200,0)
 white=(255,255,255)
@@ -29,15 +32,18 @@ with mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
         h,w,_=image.shape #높이, 넓이 , channel (필요 없을 시 _)
 
-        ## 검출된 얼굴이 있다면 
+        ## 검출된 얼굴이 있다면 (마스크 미착용)
         if results.detections:
+            ## 우측 상단에 MASK X 로 라벨링
             cv2.rectangle(image,(1000,20),(1270,100), black,4)
             cv2.putText(image, 'MASK', (1010, 80), cv2.FONT_HERSHEY_TRIPLEX, 2, black)
             cv2.putText(image, 'MASK', shade, cv2.FONT_HERSHEY_TRIPLEX, 2, black)
             cv2.line(image,(1205,35),(1255,85),red,10)
             cv2.line(image,(1255,35),(1205,85),red,10)
-                
+        
+        ## 검출된 얼굴이 없다면 (마스크 착용)
         else:
+            ## 우측 상단에 MASK O 로 라벨링
             cv2.rectangle(image,(1000,20),(1270,100), black,4)
             cv2.putText(image, 'MASK', (1010, 80), cv2.FONT_HERSHEY_TRIPLEX, 2, black)
             cv2.putText(image, 'MASK', shade, cv2.FONT_HERSHEY_TRIPLEX, 2, black)
