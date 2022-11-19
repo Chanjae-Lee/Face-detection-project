@@ -1,3 +1,5 @@
+# 마스크 아이콘을 클릭하면 얼굴을 인식해 해당 마스크를 씌워주는 프로그램
+
 import cv2
 import mediapipe as mp
 
